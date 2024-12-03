@@ -8,12 +8,11 @@ struct list_t {
 };
 
 list_t *sort(list_t *l) {
-	list_t *s = l;
 	list_t *p;
 	list_t *e;
 	int swapped = 0;
 	
-	while(s != NULL) {
+	while(l != NULL) {
 		p = l;
 		e = l;
 		while(e->next != NULL) {
@@ -38,8 +37,8 @@ list_t *sort(list_t *l) {
 		if (!swapped) {
 			break;
 		}
+		swapped = 0;
 	        
-		s = s->next;
 	}
 
 	return l;
@@ -106,10 +105,15 @@ int main(void) {
 
 	list_t *l = leftlist;
 	list_t *r = rightlist;
-
+	
 	int totalDist = 0;
 	while (l != NULL && r != NULL) {
-		totalDist += r->elem - l->elem;
+		int diff= l->elem - r->elem;
+		if (diff < 0) {
+			diff = -diff;
+		}
+		totalDist += diff;
+		//printf("L: %d, R: %d, D: %d, T: %d\n", l->elem, r->elem, diff, totalDist);
 		l = l->next;
 		r = r->next;
 	}
