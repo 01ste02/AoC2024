@@ -1,17 +1,20 @@
 .PHONY: all cleanpart1 cleanpart2 part1 part2 clean
 
+CC=gcc -O3 -g
+RUN=valgrind --leak-check=full --show-leak-kinds=all
+
 all:	clean part1 part2
 
 part1:	cleanpart1
 	@echo "Part 1"
-	gcc -O3 part1.c -o part1.out
-	./part1.out > part1.output
+	$(CC) part1.c -o part1.out
+	$(RUN) ./part1.out > part1.output
 	cat part1.output
 
 part2:	cleanpart2
 	@echo "Part 2"
-	gcc -O3 part2.c -o part2.out
-	./part2.out > part2.output
+	$(CC) part2.c -o part2.out
+	$(RUN) ./part2.out > part2.output
 	cat part2.output
 
 clean:
