@@ -18,11 +18,11 @@ all:	clean part1 part2
 test: 	testpart1 testpart2
 
 makepart%: cleanpart% $(LIBRARY_OBJS)
-	$(CC) $(CFLAGS) part$(*).c $(LIBRARY_OBJS) -o part$(*).out
+	@$(CC) $(CFLAGS) part$(*).c $(LIBRARY_OBJS) -o part$(*).out
 
 part%:	makepart%
 	@echo "Part $(*)"
-	./part$(*).out $(REALFILE) > part$(*).output
+	@./part$(*).out $(REALFILE) > part$(*).output
 	@cat part$(*).output
 
 testpart%: makepart%
@@ -31,12 +31,12 @@ testpart%: makepart%
 	@cat part$(*).output
 
 $(LIBRARY_PATH)/%.o: $(LIBRARY_PATH)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean: cleanpart1 cleanpart2
-	rm -f $(LIBRARY_OBJS)
+	@rm -f $(LIBRARY_OBJS)
 
 cleanpart%:
 	@echo "Cleaning part $(*)"
-	rm -f part$(*).out
-	rm -f part$(*).output
+	@rm -f part$(*).out
+	@rm -f part$(*).output
