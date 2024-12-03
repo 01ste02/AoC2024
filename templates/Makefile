@@ -1,33 +1,42 @@
-.PHONY: all cleanpart1 cleanpart2 part1 part2 clean
+.PHONY: all test clean
 
-CC=gcc -O3 -g
-RUN=valgrind --leak-check=full --show-leak-kinds=all
+LIBRARY_PATH = ../library
+
+CC=gcc
+CFLAGS=-O3 -g -I$(LIBRARY_PATH)
+DEBUG=valgrind --leak-check=full --show-leak-kinds=all
+
+
+LIBRARY_SRCS = $(wildcard $(LIBRARY_PATH)/*.c)
+LIBRARY_OBJS = $(LIBRARY_SRCS:.c=.o)
+
+REALFILE="real.in"
+TESTFILE="test.in"
 
 all:	clean part1 part2
 
-part1:	cleanpart1
-	@echo "Part 1"
-	$(CC) part1.c -o part1.out
-	$(RUN) ./part1.out > part1.output
-	cat part1.output
+test: 	testpart1 testpart2
 
-part2:	cleanpart2
-	@echo "Part 2"
-	$(CC) part2.c -o part2.out
-	$(RUN) ./part2.out > part2.output
-	cat part2.output
+makepart%: cleanpart% $(LIBRARY_OBJS)
+	$(CC) $(CFLAGS) part$(*).c $(LIBRARY_OBJS) -o part$(*).out
 
-clean:
-	@echo "Cleaning"
-	rm *.out
-	rm part*.output
+part%:	makepart%
+	@echo "Part $(*)"
+	./part$(*).out $(REALFILE) > part$(*).output
+	@cat part$(*).output
 
-cleanpart1:
-	@echo "Cleaning part 1"
-	rm -f part1.out
-	rm -f part1.output
+testpart%: makepart%
+	@echo "Testing part $(*)"
+	$(DEBUG) ./part$(*).out $(TESTFILE) > part$(*).output
+	@cat part$(*).output
 
-cleanpart2:
-	@echo "Cleaning part 2"
-	rm -f part2.out
-	rm -f part2.output
+$(LIBRARY_PATH)/%.o: $(LIBRARY_PATH)/%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean: cleanpart1 cleanpart2
+	rm -f $(LIBRARY_OBJS)
+
+cleanpart%:
+	@echo "Cleaning part $(*)"
+	rm -f part$(*).out
+	rm -f part$(*).output
