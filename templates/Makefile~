@@ -1,0 +1,11 @@
+
+
+part1:
+	@echo "Part 1"
+	gcc -O3 part1.c -o part1.out
+
+
+clean:
+	@echo "Cleaning"
+	rm *.out
+	rm part*.output
