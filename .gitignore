@@ -5,6 +5,10 @@
 # Input files
 i
 *.in
+
+# Output files
+*.output
+
 # Object files
 *.o
 *.ko
