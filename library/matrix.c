@@ -12,7 +12,7 @@ int mAddR(matrix_t *m, list_t *r) {
 	}
 
 	matrixrow *mr = (matrixrow *) malloc(sizeof(matrixrow));
-	mr->lastRow->row = r;
+	mr->row = r;
 	mr->next = NULL;
 	
 	if (m->numRow != 0) {
@@ -71,7 +71,7 @@ void mFree(matrix_t *m) {
 	matrixrow *rn;
 	while (r != NULL) {
 		rn = r->next;
-		mRFREE(r);
+		mRFree(r);
 		r = rn;
 	}
 
