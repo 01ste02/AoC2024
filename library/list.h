@@ -13,4 +13,6 @@
 
 	int count(int v, list_t *l);
 
+        int length(list_t * l);
+
 #endif

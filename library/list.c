@@ -63,4 +63,16 @@ int count(int v, list_t *l) {
 	return c;
 }
 
+int length(list_t * l) {
+	int len = 0;
+	while (l != NULL) {
+		len++;
+		l = l->next;
+	}
+
+	return len;
+}
+
+	
+
 
