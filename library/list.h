@@ -25,6 +25,8 @@ list_t *lRem(list_t *l, list_t *r);
 
 int lIndexOf(list_t *l, int elem);
 
+int lLength(list_t *l);
+
 list_t *lNew();
 
 #endif

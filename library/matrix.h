@@ -1,7 +1,7 @@
 #ifndef MATRIXH
 #define MATRIXH
 
-#include "list.h"
+#include "listnew.h"
 typedef struct matrix_t matrix_t;
 typedef struct matrixrow matrixrow;
 
@@ -13,13 +13,13 @@ struct matrix_t {
 };
 
 struct matrixrow {
-	list_t* row;
+	list* row;
 	matrixrow *next;
 };
 
-int mAddR(matrix_t *m, list_t *r);
+int mAddR(matrix_t *m, list *r);
 
-list_t *mGetR(matrix_t *m, int i);
+list *mGetR(matrix_t *m, int i);
 
 int mGet(matrix_t *m, int i, int j);
 

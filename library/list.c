@@ -152,6 +152,10 @@ list_t *lNew() {
 	return n;
 }
 
+int lLength(list_t *l) {
+	return l->length;
+}
+
 
 	
 
