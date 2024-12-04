@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+#include "matrix.h"
 
 int main(int argc, char *argv[]) {
 	FILE *input = fopen(argv[1], "r"); 
