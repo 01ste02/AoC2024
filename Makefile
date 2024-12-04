@@ -1,6 +1,6 @@
 DAYS=$(wildcard ./day*)
 
-.PHONY: all $(DAYS) clean
+.PHONY: all $(DAYS) clean test
 
 
 all: $(DAYS)
@@ -12,3 +12,9 @@ clean:
 	for d in $(DAYS); do \
 		$(MAKE) -C $$d clean; \
 	done
+
+test:
+	for d in $(DAYS); do \
+		$(MAKE) -C $$d test; \
+	done
+
