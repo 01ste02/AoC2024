@@ -33,7 +33,6 @@ int findDir(matrix_t *m, int i, int j, int di, int dj) {
 }
 
 int findXMAS(matrix_t *m, int i, int j) {
-	int c;
 	int found = 0;
 	found += findDir(m, i, j, 1, 1); // Diag down right
 	found += findDir(m, i, j, 1, -1); // Diag down left
@@ -60,8 +59,6 @@ int main(int argc, char *argv[]) {
 	matrix_t *m = mNew();
 
 	list *r = lNew();
-	int rowLen = -1;
-	int rowLenSet = 0;
 	while((ch = fgetc(input)) != EOF) {
 		if (ch != '\n') {
 			lAdd(r, ch);
@@ -85,8 +82,6 @@ int main(int argc, char *argv[]) {
 
 	int numFound = 0;
 
-	int di = 0;
-	int dj = 0;
 	for (int i = 0; i < mRows(m); i++) {
 		for (int j = 0; j < mCols(m); j++) {
 			int c = mGet(m, i, j);
