@@ -47,7 +47,7 @@ list *lSort(list *l) {
 
 int lFree(list *l) {
 	listelem *f = l->first;
-	while(l != NULL) {
+	while(f != NULL) {
 		listelem *tmp = f->next;
 		free(f);
 		f = tmp;
@@ -71,7 +71,7 @@ int lCount(int v, list *l) {
 }
 
 int lGet(list *l, int i) {
-	if (i >= l->length) {
+	if (i >= l->length || i < 0) {
 		return INT_MIN;
 	}
 
@@ -79,6 +79,7 @@ int lGet(list *l, int i) {
 	listelem *c = l->first;
 	while (j < i && c != NULL) {
 		c = c->next;
+		j++;
 	}
 
 	if (c == NULL) {

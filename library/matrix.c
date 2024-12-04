@@ -5,7 +5,7 @@
 #include "matrix.h"
 
 int mAddR(matrix_t *m, list *r) {
-	if (r->length != m->rowLen && m->numRow != 0) {
+	if (lLength(r) != mCols(m) && mRows(m) != 0) {
 		return -1;
 	} else if (r->length != m->rowLen) {
 		m->rowLen = r->length;
@@ -28,7 +28,7 @@ int mAddR(matrix_t *m, list *r) {
 }
 
 list *mGetR(matrix_t *m, int i) {
-	if (i >= m->numRow)
+	if (i >= m->numRow || i < 0)
 		return NULL;
 	matrixrow *r = m->row;
 	int j = 0;
@@ -64,6 +64,8 @@ matrix_t *mNew() {
 	m->rowLen = 0;
 	m->row = NULL;
 	m->lastRow = NULL;
+
+	return m;
 }
 
 void mFree(matrix_t *m) {

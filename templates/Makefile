@@ -3,7 +3,7 @@
 LIBRARY_PATH = ../library
 
 CC=gcc
-CFLAGS=-O3 -g -I$(LIBRARY_PATH)
+CFLAGS=-O3 -g -Werror -I$(LIBRARY_PATH)
 DEBUG=valgrind --leak-check=full --show-leak-kinds=all
 
 
