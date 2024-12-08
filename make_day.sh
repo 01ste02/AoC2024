@@ -4,3 +4,4 @@ FOLDER="day${NEXTDAY}"
 mkdir -p "${FOLDER}"
 ln -s ../templates/Makefile "${FOLDER}/Makefile"
 cp -i templates/day/code.c "${FOLDER}/part1.c" 
+cd ${FOLDER}
