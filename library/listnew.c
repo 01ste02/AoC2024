@@ -52,6 +52,7 @@ int lFree(list *l) {
 		free(f);
 		f = tmp;
 	}
+	free(l->quickindex);
 	free(l);
 	return 0;
 }
@@ -75,7 +76,7 @@ int lGet(list *l, int i) {
 		return INT_MIN;
 	}
 
-	int j = 0;
+	/*int j = 0;
 	listelem *c = l->first;
 	while (j < i && c != NULL) {
 		c = c->next;
@@ -84,9 +85,9 @@ int lGet(list *l, int i) {
 
 	if (c == NULL) {
 		return INT_MIN;
-	}
+		}*/
 
-	return c->elem;
+	return (l->quickindex[i])->elem;
 }
 
 void lAdd(list *l, int elem) {
@@ -102,14 +103,26 @@ void lAdd(list *l, int elem) {
 		l->last = e;
 	}
 	l->length++;
+
+	l->quickindex = (listelem **) realloc(l->quickindex,
+					 l->length * sizeof(listelem *));
+	(l->quickindex[l->length - 1]) = e;
 }
 
 void *lRem(list *l, listelem *r) {
 	listelem *last = l->first;
 	listelem *c = l->first;
+	int index = 0;
 	while (c != NULL) {
 		if (c == r) {
 			l->length--;
+			for (int i = index; i < l->length; i++) {
+				l->quickindex[i] = l->quickindex[i + 1];
+			}
+			l->quickindex = (listelem **) realloc(
+				l->quickindex,
+				l->length * sizeof(listelem *));
+			
 			if (c == l->last) {
 				l->last = NULL;
 				l->first = NULL;
@@ -124,6 +137,7 @@ void *lRem(list *l, listelem *r) {
 		}
 		last = c;
 		c = c->next;
+		index++;
 	}
 
 	return NULL;
@@ -150,6 +164,7 @@ list *lNew() {
 	n->first = NULL;
 	n->length = 0;
 	n->last = NULL;
+	n->quickindex = NULL;
 
 	return n;
 }

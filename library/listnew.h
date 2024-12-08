@@ -7,6 +7,7 @@ struct list {
 	listelem *first;
 	listelem *last;
 	int length;
+	listelem **quickindex;
 };
 
 struct listelem {
