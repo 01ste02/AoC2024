@@ -159,6 +159,13 @@ int lIndexOf(list *l, int elem) {
 	return -1;
 }
 
+int lSet(list *l, int i, int elem) {
+	if (i < 0 || i >= l->length)
+		return INT_MIN;
+	l->quickindex[i]->elem = elem;
+	return 1;
+}
+
 list *lNew() {
 	list *n = (list *) malloc(sizeof(list));
 	n->first = NULL;

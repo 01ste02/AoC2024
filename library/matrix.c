@@ -24,13 +24,17 @@ int mAddR(matrix_t *m, list *r) {
 	}
 	
 	m->numRow++;
+
+	m->quickindex = (matrixrow **) realloc(m->quickindex,
+					       m->numRow * sizeof(matrixrow *));
+	(m->quickindex[m->numRow - 1]) = mr;
 	return m->numRow;
 }
 
 list *mGetR(matrix_t *m, int i) {
 	if (i >= m->numRow || i < 0)
 		return NULL;
-	matrixrow *r = m->row;
+	/*matrixrow *r = m->row;
 	int j = 0;
 	while (j < i && r != NULL) {
 		r = r->next;
@@ -39,7 +43,8 @@ list *mGetR(matrix_t *m, int i) {
 
 	if (r == NULL)
 		return NULL;
-	return r->row;
+		return r->row;*/
+	return m->quickindex[i]->row;
 	
 }
 
@@ -58,18 +63,27 @@ int mCols(matrix_t *m) {
 	return m->rowLen;
 }
 
+int mSet(matrix_t *m, int i, int j, int elem) {
+	if (i < 0 || j < 0 || i >= m->numRow || j >= m->rowLen)
+		return INT_MIN;
+
+	return lSet(mGetR(m, i), j, elem);
+}
+
 matrix_t *mNew() {
 	matrix_t *m = (matrix_t *) malloc(sizeof(matrix_t));
 	m->numRow = 0;
 	m->rowLen = 0;
 	m->row = NULL;
 	m->lastRow = NULL;
+	m->quickindex = NULL;
 
 	return m;
 }
 
 void mFree(matrix_t *m) {
 	matrixrow *r = m->row;
+	free(m->quickindex);
 	matrixrow *rn;
 	while (r != NULL) {
 		rn = r->next;

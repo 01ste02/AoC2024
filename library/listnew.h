@@ -31,6 +31,8 @@ int lIndexOf(list *l, int elem);
 
 int lLength(list *l);
 
+int lSet(list *l, int i, int elem);
+
 list *lNew();
 
 #endif

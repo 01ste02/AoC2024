@@ -10,6 +10,7 @@ struct matrix_t {
 	int rowLen;
 	matrixrow *row;
 	matrixrow *lastRow;
+	matrixrow **quickindex;
 };
 
 struct matrixrow {
@@ -26,6 +27,8 @@ int mGet(matrix_t *m, int i, int j);
 int mRows(matrix_t *m);
 
 int mCols(matrix_t *m);
+
+int mSet(matrix_t *m, int i, int j, int elem);
 
 matrix_t *mNew();
 
